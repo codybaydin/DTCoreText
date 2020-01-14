@@ -990,46 +990,49 @@ NSDictionary *_classesForNames = nil;
 			// nothing to do
 		}
 	}
-	
-	NSString *fontWeight = [[styles objectForKey:@"font-weight"] lowercaseString];
-	if (fontWeight)
-	{
-		// remove font name since this would cause font creation to ignore the trait
-		_fontDescriptor.fontName = nil;
-		
-		if ([fontWeight isEqualToString:@"normal"])
-		{
-			_fontDescriptor.boldTrait = NO;
-		}
-		else if ([fontWeight isEqualToString:@"bold"])
-		{
-			_fontDescriptor.boldTrait = YES;
-		}
-		else if ([fontWeight isEqualToString:@"bolder"])
-		{
-			_fontDescriptor.boldTrait = YES;
-		}
-		else if ([fontWeight isEqualToString:@"lighter"])
-		{
-			_fontDescriptor.boldTrait = NO;
-		}
-		else
-		{
-			// can be 100 - 900
-			
-			NSInteger value = [fontWeight intValue];
-			
-			if (value<=600)
-			{
-				_fontDescriptor.boldTrait = NO;
-			}
-			else
-			{
-				_fontDescriptor.boldTrait = YES;
-			}
-		}
-	}
-	
+
+    if ([[styles objectForKey:@"font-weight"] respondsToSelector:@selector(lowercaseString)])
+    {
+        NSString *fontWeight = [[styles objectForKey:@"font-weight"] lowercaseString];
+        if (fontWeight)
+        {
+            // remove font name since this would cause font creation to ignore the trait
+            _fontDescriptor.fontName = nil;
+
+            if ([fontWeight isEqualToString:@"normal"])
+            {
+                _fontDescriptor.boldTrait = NO;
+            }
+            else if ([fontWeight isEqualToString:@"bold"])
+            {
+                _fontDescriptor.boldTrait = YES;
+            }
+            else if ([fontWeight isEqualToString:@"bolder"])
+            {
+                _fontDescriptor.boldTrait = YES;
+            }
+            else if ([fontWeight isEqualToString:@"lighter"])
+            {
+                _fontDescriptor.boldTrait = NO;
+            }
+            else
+            {
+                // can be 100 - 900
+
+                NSInteger value = [fontWeight intValue];
+
+                if (value<=600)
+                {
+                    _fontDescriptor.boldTrait = NO;
+                }
+                else
+                {
+                    _fontDescriptor.boldTrait = YES;
+                }
+            }
+        }
+    }
+
 	NSString *decoration = [[styles objectForKey:@"text-decoration"] lowercaseString];
 	if (decoration)
 	{
