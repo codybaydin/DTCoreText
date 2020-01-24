@@ -699,7 +699,12 @@ NSDictionary *_classesForNames = nil;
 		{
 			continue;
 		}
-		
+
+        if (![[styles objectForKey:oneKey] isKindOfClass:[NSString class]])
+        {
+            continue;
+        }
+
 		NSString *attributeValue = [styles objectForKey:oneKey];
 		
 		NSRange dashRange = [oneKey rangeOfString:@"-"];
